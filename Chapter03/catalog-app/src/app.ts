@@ -22,6 +22,9 @@ import * as path from "path";
 import * as cookieParser from "cookie-parser";
 import * as logger from "morgan";
 
+import * as swaggerUi from "swagger-ui-express";
+import * as swaggerDocument from "./static/swagger.json";
+
 import indexRouter from "./routes/index";
 import catalogRouter from "./routes/catalog"
 
@@ -39,7 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 // '/catalog/api-docs' should be before '/catalog'.
-// app.use('/catalog/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/catalog/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/catalog', catalogRouter);
 
 
