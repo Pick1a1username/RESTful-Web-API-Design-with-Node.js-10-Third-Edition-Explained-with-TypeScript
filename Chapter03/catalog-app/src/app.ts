@@ -23,7 +23,7 @@ import * as cookieParser from "cookie-parser";
 import * as logger from "morgan";
 
 import indexRouter from "./routes/index";
-// var catalogRouter = require('./routes/catalog');
+import catalogRouter from "./routes/catalog"
 
 var app = express();
 
@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 // '/catalog/api-docs' should be before '/catalog'.
 // app.use('/catalog/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-// app.use('/catalog', catalogRouter);
+app.use('/catalog', catalogRouter);
 
 
 
