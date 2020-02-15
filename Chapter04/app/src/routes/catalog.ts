@@ -4,29 +4,33 @@ import * as catalog from '../modules/catalog';
 
 const router = express.Router();
 
-router.get('/', function(request, response, next) {
-  var categories = catalog.findCategoryies();
-  response.json(categories);
+router.get('/', (request, response, next) => {
+  catalog.findAllItems(response);
 });
 
-router.get('/:categoryId', function(request, response, next) {
-  var categories = catalog.findItems(request.params.categoryId);
-  if (categories === undefined) {
-    response.writeHead(404, {'Content-Type' : 'text/plain'});
-    response.end('Not found');
-  } else {
-    response.json(categories);
-  }
+router.get('/item/:itemId', (request, response, next) => {
+  console.log(request.url + ' : querying for ' + request.params.itemId);
+  catalog.findItemById(request.params.itemId, response);
 });
 
-router.get('/:categoryId/:itemId', function(request, response, next) {
-  var item = catalog.findItem(request.params.categoryId, request.params.itemId);
-  if (item === undefined) {
-    response.writeHead(404, {'Content-Type' : 'text/plain'});
-    response.end('Not found');
-  } else {
-  response.json(item);
-  }
+
+router.get('/:categoryId', (request, response, next) => {
+  console.log(request.url + ' : querying for ' + request.params.categoryId);
+  catalog.findItemsByCategory(request.params.categoryId, response);
 });
+
+
+router.post('/', (request, response, next) => {
+  catalog.saveItem(request, response);
+});
+
+router.put('/', (request, response, next) => {
+  catalog.saveItem(request, response);
+});
+
+router.delete('/item/:itemId', (request, response, next) => {
+  catalog.remove(request, response);
+});
+
 
 export default router;
