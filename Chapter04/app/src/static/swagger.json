@@ -1,0 +1,145 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Catalog API Documentation",
+      "version": "v1"
+    },
+    "paths": {
+      "/catalog": {
+        "get": {
+          "operationId": "retrieveAllCategories",
+          "summary": "Retrieves all available categories in the catalog ",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "200 OK",
+              "examples": {
+                "application/json": [
+                  {
+                    "categoryId" : "1",
+                    "categoryName":"Watches"
+                  },
+                  {
+                    "categoryId":"2",
+                    "categoryName":"Cars"
+                  }
+                ]
+              }
+            },
+            "404": {
+              "description": "404 Not Found"
+            },
+            "500": {
+              "description": "500 Internal Server Error"
+            }
+          }
+        }
+      },
+      "/catalog/{categoryId}": {
+        "get": {
+          "operationId": "retrieveAllItems",
+          "summary": "Retrieves all the items available under a specific category ",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "categoryId",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "Category's ID"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "200 OK",
+              "examples": {
+                "application/json": [
+                  {
+                    "itemId" : "item-identifier-1",
+                    "itemName" : "Volkswagen Polo",
+                    "price" : 150000,
+                    "currency" : "EUR"
+                  },
+                  {
+                    "itemId" : "item-identifier-2",
+                    "itemName" : "Skoda Fabia",
+                    "price" : 180000,
+                    "currency" : "EUR"
+                  },
+                  {
+                    "itemId" : "item-identifier-3",
+                    "itemName" : "Subaru Impreza",
+                    "price" : 100000,
+                    "currency" : "EUR"
+                  }
+                ]
+              }
+            },
+            "404": {
+              "description": "404 Not Found"
+            },
+            "500": {
+              "description": "500 Internal Server Error"
+            }
+          }
+        }
+      },
+      "/catalog/{categoryId}/{itemId}": {
+        "get": {
+          "operationId": "retrieveItem",
+          "summary": "Retrieves an item by its ID under a specific category ",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "categoryId",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "Category's ID"
+            },
+            {
+              "in": "path",
+              "name": "itemId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Item's ID"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "200 OK",
+              "examples": {
+                "application/json": {
+                  "itemId" : "item-identifier-1",
+                  "itemName" : "Volkswagen Polo",
+                  "price" : 150000,
+                  "currency" : "EUR"
+                }
+              }
+            },
+            "404": {
+              "description": "404 Not Found"
+            },
+            "500": {
+              "description": "500 Internal Server Error"
+            }
+          }
+        }
+      }
+    },
+    "consumes": [
+      "application/json"
+    ]
+  }
